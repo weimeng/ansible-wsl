@@ -1,25 +1,23 @@
 ---
-- hosts: all
-  tasks:
-    - name: Ensure that .gitignore is present
-      file:
-        path: ~/.gitignore
-        state: touch
+- name: Ensure that .gitignore is present
+  file:
+    path: ~/.gitignore
+    state: touch
 
-    - name: Ensure that .dotfiles is gitignored
-      lineinfile:
-        path: ~/.gitignore
-        line: '.dotfiles'
+- name: Ensure that .dotfiles is gitignored
+  lineinfile:
+    path: ~/.gitignore
+    line: '.dotfiles'
 
-    - name: Clone dotfiles repo
-      git:
-        repo: git@github.com:weimeng/dotfiles.git
-        dest: ~/.dotfiles
-        bare: yes
-        accept_hostkey: yes
+- name: Clone dotfiles repo
+  git:
+    repo: git@github.com:weimeng/dotfiles.git
+    dest: ~/.dotfiles
+    bare: yes
+    accept_hostkey: yes
 
-    - name: Hide untracked dotfiles
-      command: /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
+- name: Hide untracked dotfiles
+  command: /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
 
-    - name: Replace any existing dotfiles with versions from repo
-      command: /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout -f
+- name: Replace any existing dotfiles with versions from repo
+  command: /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout -f

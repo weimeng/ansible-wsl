@@ -1,0 +1,5 @@
+---
+- name: Install common development dependencies
+  apt: name={{ item }}
+  with_items:
+    - build-essential

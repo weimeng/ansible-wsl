@@ -1,18 +1,16 @@
 ---
-- hosts: all
+- name: Set up Ruby build environment (https://github.com/rbenv/ruby-build/wiki#suggested-build-environment)
+  apt: name={{ item }}
+  with_items:
+    - autoconf
+    - bison
+    - build-essential
+    - libssl-dev
+    - libyaml-dev
+    - libreadline6-dev
+    - zlib1g-dev
+    - libncurses5-dev
+    - libffi-dev
+    - libgdbm3
+    - libgdbm-dev
   become: yes
-  tasks:
-    - name: Set up Ruby build environment (https://github.com/rbenv/ruby-build/wiki#suggested-build-environment)
-      apt: name={{ item }}
-      with_items:
-        - autoconf
-        - bison
-        - build-essential
-        - libssl-dev
-        - libyaml-dev
-        - libreadline6-dev
-        - zlib1g-dev
-        - libncurses5-dev
-        - libffi-dev
-        - libgdbm3
-        - libgdbm-dev

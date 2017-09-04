@@ -1,0 +1,7 @@
+---
+- name: Base set up
+  hosts: all
+  roles:
+    - zsh
+    - dotfiles
+    - dev-common

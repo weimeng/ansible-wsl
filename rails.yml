@@ -1,0 +1,8 @@
+---
+- name: Set up for Rails development
+  hosts: all
+  roles:
+    - ruby
+    - rbenv
+    - nodejs
+    - postgresql

@@ -1,47 +1,51 @@
 ---
-- hosts: all
+- name: Add PostgreSQL apt repository signing key
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
   become: yes
-  tasks:
-    - name: Add PostgreSQL apt repository signing key
-      apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
 
-    - name: Add PostgreSQL apt repository
-      apt_repository:
-        repo: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
-        update_cache: yes
+- name: Add PostgreSQL apt repository
+  apt_repository:
+    repo: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+    update_cache: yes
+  become: yes
 
-    - name: Install PostgreSQL packages
-      apt: "name={{ item }}"
-      with_items:
-        - libpq-dev
-        - postgresql
+- name: Install PostgreSQL packages
+  apt: "name={{ item }}"
+  with_items:
+    - libpq-dev
+    - postgresql
+  become: yes
 
-    - name: Install Ansible PostgreSQL dependencies
-      pip:
-        name: psycopg2
+- name: Install Ansible PostgreSQL dependencies
+  pip:
+    name: psycopg2
+  become: yes
 
-    - name: Start PostgreSQL service
-      service:
-        name: postgresql
-        state: started
+- name: Start PostgreSQL service
+  service:
+    name: postgresql
+    state: started
+  become: yes
 
-    - name: Get local username
-      become: no
-      command: whoami
-      register: local_username
+- name: Get local username
+  command: whoami
+  register: local_username
 
-    - name: Set up default PostgreSQL user
-      become_user: postgres
-      postgresql_user:
-        name: "{{ local_username.stdout }}"
-        role_attr_flags: SUPERUSER
+- name: Set up default PostgreSQL user
+  postgresql_user:
+    name: "{{ local_username.stdout }}"
+    role_attr_flags: SUPERUSER
+  become: yes
+  become_user: postgres
 
-    - name: Set up default PostgreSQL database
-      become_user: postgres
-      postgresql_db:
-        name: "{{ local_username.stdout }}"
+- name: Set up default PostgreSQL database
+  postgresql_db:
+    name: "{{ local_username.stdout }}"
+  become: yes
+  become_user: postgres
 
-    - name: Stop PostgreSQL service
-      service:
-        name: postgresql
-        state: stopped
+- name: Stop PostgreSQL service
+  service:
+    name: postgresql
+    state: stopped
+  become: yes
