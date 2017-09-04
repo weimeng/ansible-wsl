@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Add nodejs apt repository signing keys
+      apt_key: url=https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+
+    - name: Add nodejs apt repositories
+      apt_repository: repo="{{ item }}" update_cache=yes
+      with_items:
+        - deb https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main
+        - deb-src https://deb.nodesource.com/node_8.x {{ ansible_distribution_release }} main
+
+    - name: Install nodejs package
+      apt: name=nodejs
+
+    - name: Install build tools to compile and install native addons from npm
+      apt: name=build-essential
