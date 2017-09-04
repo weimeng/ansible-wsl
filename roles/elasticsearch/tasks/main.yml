@@ -1,0 +1,17 @@
+---
+- name: Add elastic apt repository signing keys
+  apt_key: url=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+  become: yes
+
+- name: Add elastic apt repositories
+  apt_repository:
+    repo: deb https://artifacts.elastic.co/packages/5.x/apt stable main
+    update_cache: yes
+  become: yes
+
+- name: Install elasticsearch package & dependencies
+  apt: name={{ item }}
+  with_items:
+    - elasticsearch
+    - default-jre
+  become: yes
