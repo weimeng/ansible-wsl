@@ -1,0 +1,15 @@
+---
+- hosts: all
+  tasks:
+    - name: Install zsh package
+      become: yes
+      apt: name=zsh
+
+    - name: Check if Oh My Zsh is already installed
+      stat: path=~/.oh-my-zsh
+      register: omzsh_status
+
+    - name: Install Oh My Zsh
+      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      when: omzsh_status.stat.isdir is not defined
+      ignore_errors: yes
