@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+    - name: Clone rbenv repo
+      git:
+        repo: https://github.com/rbenv/rbenv.git
+        dest: ~/.rbenv
+
+    - name: Compile dynamic bash extension to speed up rbenv
+      command: src/configure && make -C src
+      args:
+        chdir: ~/.rbenv
+
+    - name: Clone ruby-build repo
+      git:
+        repo: https://github.com/rbenv/ruby-build.git
+        dest: ~/.rbenv/plugins/ruby-build
