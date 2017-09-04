@@ -17,6 +17,14 @@ $ sudo apt-get update
 $ sudo apt-get upgrade
 ```
 
+For convenience, let's remove the need for a `sudo` password.
+
+```
+$ sudo visudo
+```
+
+Then add `username ALL=(ALL) NOPASSWD: ALL` to the bottom of the file. Now you can `sudo` without a password!
+
 Next, install and upgrade pip (Python package manager)
 
 ```
