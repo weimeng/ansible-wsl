@@ -5,4 +5,5 @@
     - ruby
     - rbenv
     - nodejs
+    - yarn
     - postgresql
