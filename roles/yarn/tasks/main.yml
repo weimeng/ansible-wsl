@@ -1,0 +1,12 @@
+---
+- name: Add yarn apt repository signing keys
+  apt_key: url=https://dl.yarnpkg.com/debian/pubkey.gpg
+  become: yes
+
+- name: Add yarn apt repositories
+  apt_repository: repo="deb https://dl.yarnpkg.com/debian/ stable main" update_cache=yes
+  become: yes
+
+- name: Install yarn package
+  apt: name=yarn
+  become: yes
