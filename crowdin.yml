@@ -1,0 +1,5 @@
+---
+- name: Install Crowdin CLI
+  hosts: all
+  roles:
+    - crowdin
