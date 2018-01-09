@@ -1,0 +1,6 @@
+- name: Install MySQL packages
+  apt: "name={{ item }}"
+  with_items:
+    - mysql-server
+    - libmysqlclient-dev
+  become: yes
