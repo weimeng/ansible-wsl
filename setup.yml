@@ -2,6 +2,6 @@
 - name: Base set up
   hosts: all
   roles:
+    - base
     - zsh
     - dotfiles
-    - dev-common

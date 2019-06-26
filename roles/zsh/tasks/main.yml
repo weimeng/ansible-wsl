@@ -1,7 +1,11 @@
 ---
 - name: Install zsh package
-  become: yes
   apt: name=zsh
+  sudo: yes
+
+- name: Set zsh as default shell
+  user: name=weimeng shell=/usr/bin/zsh
+  sudo: yes
 
 - name: Check if Oh My Zsh is already installed
   stat: path=~/.oh-my-zsh

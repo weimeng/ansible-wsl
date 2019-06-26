@@ -43,5 +43,5 @@ Finally, clone this repository and run the initial setup playbook.
 ```
 $ git clone git@github.com:weimeng/ansible-ubuntu-wsl.git
 $ cd ansible-ubuntu-wsl
-$ ansible-playbook setup.yml
+$ ansible-playbook -i hosts setup.yml
 ```

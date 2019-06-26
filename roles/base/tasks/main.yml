@@ -1,0 +1,8 @@
+---
+- name: Install base packages
+  apt: 
+    name:
+      - curl
+      - git
+      - vim
+  sudo: yes
