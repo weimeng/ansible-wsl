@@ -1,0 +1,19 @@
+---
+- name: Install GDK prerequisites
+  apt: 
+    name:
+      - redis-server
+      - sqlite3
+      - libsqlite3-dev
+      - libicu-dev
+      - cmake
+      - g++
+      - libkrb5-dev
+      - libre2-dev
+      - ed
+      - pkg-config
+      - graphicsmagick
+      - runit
+      - libimage-exiftool-perl
+      - rsync
+  sudo: yes

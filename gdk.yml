@@ -1,0 +1,9 @@
+---
+- name: Set up for GitLab development using GDK
+  hosts: all
+  roles:
+    - rbenv
+    - nodejs
+    - yarn
+    - postgresql
+    - gdk
