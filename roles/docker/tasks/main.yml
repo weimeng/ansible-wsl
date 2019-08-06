@@ -1,0 +1,38 @@
+---
+- name: Remove old versions of Docker
+  apt:
+    name:
+      - docker
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
+    state: absent
+  become: yes
+
+- name: Install Docker prerequisites
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg2
+      - software-properties-common
+  become: yes
+
+- name: Add Docker apt repository signing keys
+  apt_key: url=https://download.docker.com/linux/debian/gpg
+  become: yes
+
+- name: Add Docker apt repositories
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+  become: yes
+
+- name: Install latest Docker Engine - Community Edition
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+  become: yes
