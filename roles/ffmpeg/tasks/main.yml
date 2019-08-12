@@ -1,0 +1,7 @@
+---
+- name: Install ffmpeg package and dependencies
+  apt:
+    name:
+      - ffmpeg
+      - libmp3lame-dev
+  become: yes

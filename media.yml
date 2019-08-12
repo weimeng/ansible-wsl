@@ -1,0 +1,5 @@
+---
+- name: Set up media utilities
+  hosts: all
+  roles:
+    - ffmpeg
