@@ -1,11 +1,11 @@
 ---
 - name: Install zsh package
   apt: name=zsh
-  sudo: yes
+  become: yes
 
 - name: Set zsh as default shell
   user: name=weimeng shell=/usr/bin/zsh
-  sudo: yes
+  become: yes
 
 - name: Check if Oh My Zsh is already installed
   stat: path=~/.oh-my-zsh
@@ -15,3 +15,16 @@
   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   when: omzsh_status.stat.isdir is not defined
   ignore_errors: yes
+
+- name: Install spaceship-prompt
+  git:
+    repo: https://github.com/spaceship-prompt/spaceship-prompt.git
+    dest: "~/.oh-my-zsh/custom/themes/spaceship-prompt"
+    depth: 1
+    accept_hostkey: yes
+
+- name: Symlink to oh-my-zsh custom themes directory
+  file:
+    src: "~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
+    dest: "~/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    state: link

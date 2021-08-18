@@ -5,4 +5,4 @@
       - curl
       - git
       - vim
-  sudo: yes
+  become: yes
