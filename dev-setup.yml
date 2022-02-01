@@ -1,0 +1,6 @@
+---
+- name: Set up development basics
+  hosts: all
+  roles:
+    - nodenv
+    - rbenv
