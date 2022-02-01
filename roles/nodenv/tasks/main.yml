@@ -1,0 +1,22 @@
+---
+- name: Set up Node.js build environment (https://github.com/nodejs/node/blob/master/BUILDING.md#building-nodejs-on-supported-platforms)
+  apt:
+    name:
+      - g++ 
+      - make
+  become: yes
+
+- name: Clone nodenv repo
+  git:
+    repo: https://github.com/nodenv/nodenv.git
+    dest: ~/.nodenv
+
+- name: Compile dynamic bash extension to speed up nodenv
+  command: src/configure && make -C src
+  args:
+    chdir: ~/.nodenv
+
+- name: Clone node-build repo
+  git:
+    repo: https://github.com/nodenv/node-build.git
+    dest: ~/.nodenv/plugins/node-build
