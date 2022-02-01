@@ -1,31 +1,32 @@
 ---
 - name: Add PostgreSQL apt repository signing key
   apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
-  sudo: yes
+  become: yes
 
 - name: Add PostgreSQL apt repository
   apt_repository:
     repo: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
     update_cache: yes
-  sudo: yes
+  become: yes
 
 - name: Install PostgreSQL packages
   apt:
     name:
-      - postgresql-10
+      - postgresql-14
       - libpq-dev
-  sudo: yes
+  become: yes
 
 - name: Install Ansible PostgreSQL dependencies
   pip:
     name: psycopg2
-  sudo: yes
+  become: yes
 
 - name: Start PostgreSQL service
   service:
     name: postgresql
     state: started
-  sudo: yes
+    use: service
+  become: yes
 
 - name: Get local username
   command: whoami
@@ -35,17 +36,18 @@
   postgresql_user:
     name: "{{ local_username.stdout }}"
     role_attr_flags: SUPERUSER
-  sudo: yes
-  sudo_user: postgres
+  become: yes
+  become_user: postgres
 
 - name: Set up default PostgreSQL database
   postgresql_db:
     name: "{{ local_username.stdout }}"
-  sudo: yes
-  sudo_user: postgres
+  become: yes
+  become_user: postgres
 
 - name: Stop PostgreSQL service
   service:
     name: postgresql
     state: stopped
-  sudo: yes
+    use: service
+  become: yes
