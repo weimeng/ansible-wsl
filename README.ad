@@ -1,0 +1,71 @@
+= Ansible playbooks for Kali Linux on WSL
+:toc:
+
+== Overview
+
+These playbooks were written to quickly set up https://www.microsoft.com/store/productId/9PKR34TNCV07[Kali Linux]
+running on https://docs.microsoft.com/en-us/windows/wsl/about[Windows Subsystem for Linux].
+
+== Playbooks
+
+To run a playbook:
+
+[source,bash]
+----
+ansible-playbook -i hosts playbook.yml
+----
+
+List of available playbooks:
+
+* link:setup.yml[`setup.yml`]: Initial setup. Installs Z Shell with Oh My Zsh and sets up my dotfiles from a Git repository.
+
+== First-time setup
+
+First, upgrade system packages.
+
+[source,bash]
+----
+sudo apt-get update
+sudo apt-get upgrade
+----
+
+For convenience, let's remove the need for a `sudo` password.
+
+[source,bash]
+----
+sudo visudo
+----
+
+Then add `username ALL=(ALL) NOPASSWD: ALL` to the bottom of the file. Now you can `sudo` without a password!
+
+Next, install and upgrade `pip` (Python package manager):
+
+[source,bash]
+----
+sudo apt-get install python3-pip
+sudo pip3 install --upgrade pip
+----
+
+Now, install Ansible using `pip`:
+
+[source,bash]
+----
+sudo pip install ansible
+----
+
+Next, install SSH and generate your SSH keys
+
+[source,bash]
+----
+sudo apt-get install ssh
+ssh-keygen -t rsa -b 4096 -C "username@host"
+----
+
+Finally, clone this repository and run the initial setup playbook.
+
+[source,bash]
+----
+git clone git@github.com:weimeng/ansible-ubuntu-wsl.git
+cd ansible-ubuntu-wsl
+ansible-playbook -i hosts setup.yml
+----
