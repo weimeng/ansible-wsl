@@ -13,6 +13,7 @@
       - libffi-dev
       - libgdbm6
       - libgdbm-dev
+      - libdb-dev
   become: yes
 
 - name: Clone rbenv repo

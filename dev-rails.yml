@@ -1,0 +1,7 @@
+---
+- name: Set up development tools for Rails
+  hosts: all
+  roles:
+    - nodenv
+    - rbenv
+    - postgresql

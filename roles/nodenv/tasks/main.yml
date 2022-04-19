@@ -2,7 +2,7 @@
 - name: Set up Node.js build environment (https://github.com/nodejs/node/blob/master/BUILDING.md#building-nodejs-on-supported-platforms)
   apt:
     name:
-      - g++ 
+      - g++
       - make
   become: yes
 

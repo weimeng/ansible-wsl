@@ -18,6 +18,7 @@ ansible-playbook -i hosts playbook.yml
 List of available playbooks:
 
 * link:setup.yml[`setup.yml`]: Initial setup. Installs Z Shell with Oh My Zsh and sets up my dotfiles from a Git repository.
+* link:dev-rails.yml[`dev-rails.yml`]: Tools for Rails dev.
 
 == First-time setup
 
