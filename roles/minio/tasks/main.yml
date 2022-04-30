@@ -1,0 +1,17 @@
+---
+- name: Create .local/bin directory
+  file:
+    state: directory
+    path: ~/.local/bin
+
+- name: Download minio server binary
+  get_url:
+    url: https://dl.min.io/server/minio/release/linux-amd64/minio
+    dest: ~/.local/bin
+    mode: u+x
+
+- name: Download minio client binary
+  get_url:
+    url: https://dl.min.io/client/mc/release/linux-amd64/mc
+    dest: ~/.local/bin
+    mode: u+x
