@@ -1,7 +1,14 @@
 ---
+- hosts: all
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      become: yes
+
 - name: Set up development tools for Rails
   hosts: all
   roles:
-    - nodenv
     - rbenv
     - postgresql
+    - minio
