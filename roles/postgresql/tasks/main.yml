@@ -1,18 +1,4 @@
 ---
-- name: Remove PostgreSQL APT key and repository where present
-  block:
-    - name: Remove PostgreSQL apt repository signing key
-      apt_key:
-        url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-        state: absent
-      become: yes
-
-    - name: Remove PostgreSQL apt repository
-      apt_repository:
-        repo: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
-        state: absent
-      become: yes
-
 - name: Install PostgreSQL packages
   apt:
     name:
